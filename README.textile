@@ -37,7 +37,7 @@ h2. Test
   $ bundle exec rake test
 </pre>
 
-...or using "Guard":http://github.com/guard/guard
+...or using "Guard":http://github.com/guard/guard:
 
 <pre>
   $ bundle exec guard
@@ -47,7 +47,11 @@ h2. Notes
 
 This gem was developed for our own requirements at *"Merchii":http://github.com/merchii*, so feel free to send pull-requests with enhancements of any kind (features, bug-fixes, documentation, tests, etc.) to make it better or useful for you as well.
 
+h2. To-Do
+
+Still not ready for prime-time. See "TODO":https://github.com/merchii/rack-iframe/blob/master/TODO.
+
 h2. License
 
 Released under the MIT license.
-Copyright (c) "Jaakko Suutarla":http://github.com/jaakkos, "Jonas Grimfelt":http://github.com/grimen, "Merchii":http://github.com/merchii
+Copyright (c) "Jonas Grimfelt":http://github.com/grimen, "Jaakko Suutarla":http://github.com/jaakkos, "Merchii":http://github.com/merchii

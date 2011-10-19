@@ -1,0 +1,3 @@
+== TODO
+
+- [rafactor/enhancement]: Use 'useragent' gem to parse 'USER_AGENT'-header - https://rubygems.org/gems/useragent

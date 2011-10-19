@@ -5,8 +5,8 @@ require "rack/iframe/version"
 Gem::Specification.new do |s|
   s.name        = "rack-iframe"
   s.version     = Rack::Iframe::VERSION
-  s.authors     = ["Merchii", "Jaakko Suuturla", "Jonas Grimfelt"]
-  s.email       = ["operations@merchii.com", "jaakko@suutarla.com", "grimen@gmail.com"]
+  s.authors     = ["Merchii", "Jonas Grimfelt", "Jaakko Suuturla"]
+  s.email       = ["operations@merchii.com", "grimen@gmail.com", "jaakko@suutarla.com"]
   s.homepage    = "http://github.com/merchii/rack-iframe"
   s.summary     = %q{Rack middleware for enabling problematic web browsers (Internet Explorer and Safari) to use same cookies in iframes as in parent windows.}
   s.description = s.summary

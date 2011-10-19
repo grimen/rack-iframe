@@ -1,0 +1,44 @@
+h1. RACK-IFRAME "!https://secure.travis-ci.org/merchii/rack-iframe.png!":http://travis-ci.org/merchii/rack-iframe
+
+_Rack middleware for enabling problematic web browsers (Internet Explorer and Safari) to use same cookies in iframes as in parent windows._
+
+h2. Installation
+
+Add to your @Gemfile@:
+
+<pre>
+  gem 'rack-iframe'
+</pre>
+
+...and @bundle install@.
+
+h2. Usage
+
+*Minimal:*
+
+<pre>
+  require 'rack/iframe'
+
+  use Rack::Iframe
+</pre>
+
+h2. Test
+
+<pre>
+  $ bundle exec rake test
+</pre>
+
+...or using "Guard":http://github.com/guard/guard
+
+<pre>
+  $ bundle exec guard
+</pre>
+
+h2. Notes
+
+This gem was developed for our own requirements at *"Merchii":http://github.com/merchii*, so feel free to send pull-requests with enhancements of any kind (features, bug-fixes, documentation, tests, etc.) to make it better or useful for you as well.
+
+h2. License
+
+Released under the MIT license.
+Copyright (c) "Jaakko Suutarla":http://github.com/jaakkos, "Jonas Grimfelt":http://github.com/grimen, "Merchii":http://github.com/merchii

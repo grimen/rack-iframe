@@ -3,7 +3,10 @@ require 'digest/md5'
 require 'time'
 
 # == References:
-#   - http://grack.com/blog/2010/01/06/3rd-party-cookies-dom-storage-and-privacy/
+#   - http://tempe.st/tag/ruby-on-rails
+#   - http://groups.google.com/group/rack-devel/browse_thread/thread/11da5971522b107b
+#   - http://grack.com/blog/2010/01/06/3rd-party-cookies-dom-storage-and-privacy
+#   - http://anantgarg.com/2010/02/18/cross-domain-cookies-in-safari
 
 describe Rack::Iframe do
 

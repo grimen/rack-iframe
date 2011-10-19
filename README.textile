@@ -2,6 +2,15 @@ h1. RACK-IFRAME "!https://secure.travis-ci.org/merchii/rack-iframe.png!":http://
 
 _Rack middleware for enabling problematic web browsers (Internet Explorer and Safari) to use same cookies in iframes as in parent windows._
 
+h2. Background
+
+Best described via:
+
+* "http://tempe.st/tag/ruby-on-rails":http://tempe.st/tag/ruby-on-rails
+* "http://groups.google.com/group/rack-devel/browse_thread/thread/11da5971522b107b":http://groups.google.com/group/rack-devel/browse_thread/thread/11da5971522b107b
+* "http://grack.com/blog/2010/01/06/3rd-party-cookies-dom-storage-and-privacy":http://grack.com/blog/2010/01/06/3rd-party-cookies-dom-storage-and-privacy
+* "http://anantgarg.com/2010/02/18/cross-domain-cookies-in-safari":http://anantgarg.com/2010/02/18/cross-domain-cookies-in-safari
+
 h2. Installation
 
 Add to your @Gemfile@:

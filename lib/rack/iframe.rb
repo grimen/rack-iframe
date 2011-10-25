@@ -1,4 +1,5 @@
-require "rack/iframe/version"
+require 'rack'
+require 'rack/iframe/version'
 
 module Rack
   class Iframe
@@ -16,7 +17,7 @@ module Rack
     protected
 
       def user_agent(env)
-        env['HTTP_USER_AGENT'] || ''
+        env['HTTP_USER_AGENT']
       end
 
       def etag(env)

@@ -5,8 +5,11 @@ require 'digest/md5'
 module Rack
   class Iframe
 
-    def initialize(app)
-      @app = app
+    DEFAULT_P3P = %(CP="ALL DSP COR CURa ADMa DEVa OUR IND COM NAV").freeze
+
+    def initialize(app, options = {})
+      @app, @options = app, options
+      @options[:p3p] ||= DEFAULT_P3P
     end
 
     def call(env)
@@ -29,25 +32,16 @@ module Rack
         env['HTTP_USER_AGENT']
       end
 
-      def etag(env)
-        env['HTTP_IF_NONE_MATCH']
-      end
-
-      def last_modified(env)
-        env['HTTP_IF_MODIFIED_SINCE']
-      end
-
       def set_invalid_etag!(env)
         env['HTTP_IF_NONE_MATCH'] = Digest::MD5.hexdigest(Time.now.to_s)
       end
 
       def set_p3p_header!
-        @headers['P3P'] = %(CP="ALL DSP COR CURa ADMa DEVa OUR IND COM NAV")
+        @headers['P3P'] = @options[:p3p]
       end
 
-      # WIP: Handle all cases
       def set_p3p_header?(env)
-        user_agent?(:ie, env) || user_agent?(:safari, env)
+        user_agents?([:ie, :safari], env)
       end
 
       def user_agent?(id, env)
@@ -63,16 +57,14 @@ module Rack
         when :firefox
           user_agent(env).include?('Firefox')
         else
-          raise "Define mising browser agent: #{id.inspect}"
+          raise "Define missing browser agent: #{id.inspect}"
         end
       end
 
-      def etag_set?(env)
-        etag(env) && etag(env).size
-      end
-
-      def last_modified_set?(env)
-        last_modified(env) && last_modified(env).size
+      def user_agents?(ids, env)
+        [*ids].any? do |id|
+          user_agent?(id, env)
+        end
       end
 
   end

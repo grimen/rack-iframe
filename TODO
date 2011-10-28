@@ -12,6 +12,7 @@ x [feature/issue]: Fix/Review "Last-Modified" HTTP cache header case - to comply
 
 - [refactor/enhancement]: Use 'useragent' gem to parse 'USER_AGENT'-header - https://rubygems.org/gems/useragent
 
+- [refactor/test]: Use proper integration testing, i.e. mocks/env => Sinatra/headers.
 
 == MAYBE
 

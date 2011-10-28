@@ -1,21 +1,24 @@
 
-== HIGH-PRIO
+== CURRENT/NEXT
 
 x [feature/issue]: Fix/Review "Last-Modified" HTTP cache header case - to comply with W3C spec.
-
-
-== LOW-PRIO
 
 - [feature]: Track if P3P-headers should be sent via cookie. Reason: We can't assume that only bodies that contain <iframe>-elements needs the P3P header (or so I think right now).
 
 - [feature]: Add option to send 304 headers but delete "Set-Cookie"-header - not allowed by spec, but seems to work in most browsers/servers anyway.
 
+
+== LOW-PRIO
+
 - [refactor/enhancement]: Use 'useragent' gem to parse 'USER_AGENT'-header - https://rubygems.org/gems/useragent
 
 - [refactor/test]: Use proper integration testing, i.e. mocks/env => Sinatra/headers.
 
+
 == MAYBE
 
 - [feature]: Optionally silently/evily inject "the cross-domain iframe JavaScript hack" for Safari - or specified user agents - into the body response. >:)
+
 - [feature]: Support for policy reference file. http://www.w3.org/TR/P3P/#ref_file
+
 - [feature]: Support for specifying compact policies by configuration. http://www.w3.org/TR/P3P/#compact_policies http://www.p3pwriter.com/LRN_111.asp

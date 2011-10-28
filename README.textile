@@ -31,6 +31,14 @@ h2. Usage
   use Rack::Iframe
 </pre>
 
+*Custom - P3P header:*
+
+<pre>
+  require 'rack/iframe'
+
+  use Rack::Iframe, :p3p => %(CP="NOI DSP LAW NID")
+</pre>
+
 h2. Test
 
 <pre>

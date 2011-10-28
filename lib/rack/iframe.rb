@@ -1,5 +1,6 @@
 require 'rack'
 require 'rack/iframe/version'
+require 'digest/md5'
 
 module Rack
   class Iframe
@@ -9,8 +10,16 @@ module Rack
     end
 
     def call(env)
+      # 1) If P3P: Set a random Etag (If-None-Match) to trick backend to not send cached response (304).
+      set_invalid_etag!(env) if set_p3p_header?(env)
+
+      # 2) Request
       @status, @headers, @body = @app.call(env)
+
+      # 3) If P3P: Attach P3P header.
       set_p3p_header! if set_p3p_header?(env)
+
+      # 4) Response
       [@status, @headers, @body]
     end
 
@@ -26,6 +35,10 @@ module Rack
 
       def last_modified(env)
         env['HTTP_IF_MODIFIED_SINCE']
+      end
+
+      def set_invalid_etag!(env)
+        env['HTTP_IF_NONE_MATCH'] = Digest::MD5.hexdigest(Time.now.to_s)
       end
 
       def set_p3p_header!

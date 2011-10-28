@@ -1,17 +1,17 @@
 
-
 == HIGH-PRIO
 
-x [feature/issue]: Handle case where HTTP cache headers makes web servers strip P3P tag (based on W3C spec).
-
-- [feature/issue]: handle case where IE-browsers deletes the cookie if status is 304 (potentially the solution on above squashes this too).
+x [feature/issue]: Fix/Review "Last-Modified" HTTP cache header case - to comply with W3C spec.
 
 
 == LOW-PRIO
 
+- [feature]: Track if P3P-headers should be sent via cookie. Reason: We can't assume that only bodies that contain <iframe>-elements needs the P3P header (or so I think right now).
+
+- [feature]: Add option to send 304 headers but delete "Set-Cookie"-header - not allowed by spec, but seems to work in most browsers/servers anyway.
+
 - [refactor/enhancement]: Use 'useragent' gem to parse 'USER_AGENT'-header - https://rubygems.org/gems/useragent
 
-- [feature]: Track if P3P-headers should be sent via cookie. Reason: We can't assume that only bodies that contain <iframe>-elements needs the P3P header (or so I think right now).
 
 == MAYBE
 

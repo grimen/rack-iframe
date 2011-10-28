@@ -21,8 +21,7 @@ describe Rack::Iframe do
 
   describe "Middleware" do
     before do
-      # @app = app({})
-      @app = CachedApp.new # rack_cache(@app)
+      @app = CachedApp.new
     end
 
     describe "without Rack::Iframe" do
@@ -96,6 +95,17 @@ describe Rack::Iframe do
               #   status.must_equal 200 # modified
               # end
             end
+          end
+        end
+
+        describe "custom middleware-arguments" do
+          it 'should use custom P3P header if specified via options as :p3p' do
+            request = mock_request(:ie)
+
+            response = Rack::Iframe.new(@app, :p3p => %(CP="NOI DSP LAW NID")).call(request)
+            status, headers, body = response
+
+            headers['P3P'].must_equal %(CP="NOI DSP LAW NID")
           end
         end
       end

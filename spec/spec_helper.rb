@@ -54,11 +54,11 @@ def rack_cache(app, options = {})
   Rack::Cache.new(app, options)
 end
 
-def mock_request(user_agent_key, env = {})
+def mock_request(user_agent_key, env = {}, path = '/')
   headers = {
       'HTTP_USER_AGENT' => user_agent_string(user_agent_key)
     }.merge(env)
-  Rack::MockRequest.env_for('/', headers)
+  Rack::MockRequest.env_for(path, headers)
 end
 
 def random_etag

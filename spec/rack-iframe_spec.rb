@@ -186,7 +186,24 @@ describe Rack::Iframe do
           end
         end
       end
+
+      describe "any browser: Iframe session cookie hack" do
+        before do
+          @user_agents = [:safari]
+        end
+
+        it 'should respond to * /iframe_session with P3P header - modified (200 OK)' do
+          @user_agents.each do |user_agent|
+            request = mock_request(user_agent, {}, '/iframe_session')
+
+            response = Rack::Iframe.new(@app).call(request)
+            status, headers, body = response
+
+            headers['P3P'].must_equal %(CP="ALL DSP COR CURa ADMa DEVa OUR IND COM NAV")
+            status.must_equal 200 # modified
+          end
+        end
+      end
     end
   end
-
 end

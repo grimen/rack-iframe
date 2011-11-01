@@ -6,10 +6,12 @@ module Rack
   class Iframe
 
     DEFAULT_P3P = %(CP="ALL DSP COR CURa ADMa DEVa OUR IND COM NAV").freeze
+    DEFAULT_IFRAME_SESSION_PATH = '/iframe_session'.freeze
 
     def initialize(app, options = {})
       @app, @options = app, options
       @options[:p3p] ||= DEFAULT_P3P
+      @options[:iframe_session_path] ||= DEFAULT_IFRAME_SESSION_PATH
     end
 
     def call(env)
@@ -17,7 +19,11 @@ module Rack
       set_invalid_etag!(env) if set_p3p_header?(env)
 
       # 2) Request
-      @status, @headers, @body = @app.call(env)
+      if iframe_session_path?(env)
+        @status, @headers, @body = iframe_session_response
+      else
+        @status, @headers, @body = @app.call(env)
+      end
 
       # 3) If P3P: Attach P3P header.
       set_p3p_header! if set_p3p_header?(env)
@@ -65,6 +71,14 @@ module Rack
         [*ids].any? do |id|
           user_agent?(id, env)
         end
+      end
+
+      def iframe_session_path?(env)
+        env['PATH_INFO'] == @options[:iframe_session_path]
+      end
+
+      def iframe_session_response
+        [200, {}, [""]]
       end
 
   end

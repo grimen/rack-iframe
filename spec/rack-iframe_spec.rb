@@ -203,6 +203,15 @@ describe Rack::Iframe do
             status.must_equal 200 # modified
           end
         end
+
+        it 'should set session variable :iframe_session on request to /iframe_session' do
+          @user_agents.each do |user_agent|
+            browser = Rack::Test::Session.new(Rack::MockSession.new(SessionIframeApp))
+            browser.get '/iframe_session', {}, 'HTTP_USER_AGENT' => user_agent_string(user_agent)
+            browser.get '/test_iframe_session', {}, 'HTTP_USER_AGENT' => user_agent_string(user_agent)
+            browser.last_response.body.must_equal "true"
+          end
+        end
       end
     end
   end

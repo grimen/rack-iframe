@@ -7,11 +7,13 @@ module Rack
 
     DEFAULT_P3P = %(CP="ALL DSP COR CURa ADMa DEVa OUR IND COM NAV").freeze
     DEFAULT_IFRAME_SESSION_PATH = '/iframe_session'.freeze
+    DEFAULT_ENV_SESSION_KEY = 'rack.session'.freeze
 
     def initialize(app, options = {})
       @app, @options = app, options
       @options[:p3p] ||= DEFAULT_P3P
       @options[:iframe_session_path] ||= DEFAULT_IFRAME_SESSION_PATH
+      @options[:env_session_key] ||= DEFAULT_ENV_SESSION_KEY
     end
 
     def call(env)
@@ -20,7 +22,8 @@ module Rack
 
       # 2) Request
       if iframe_session_path?(env)
-        @status, @headers, @body = iframe_session_response
+        @app.call(env) # ...still call app as we want same ENV.
+        @status, @headers, @body = iframe_session_response(env)
       else
         @status, @headers, @body = @app.call(env)
       end
@@ -77,7 +80,14 @@ module Rack
         env['PATH_INFO'] == @options[:iframe_session_path]
       end
 
-      def iframe_session_response
+      def iframe_session_response(env)
+        begin
+          # Write a value into the session to ensure we get a session (cookie).
+          session_key = @options[:env_session_key]
+          env[session_key][:iframe_session] = true
+        rescue => e
+          env['rack.errors'].puts "[rack-iframe]: env[#{@options[:env_session_key]}] = #{env[@options[:env_session_key]]}"
+        end
         [200, {}, [""]]
       end
 

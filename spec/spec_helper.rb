@@ -19,8 +19,9 @@ require 'rack/iframe'
 ENV['RACK_ENV'] = 'test'
 
 class CachedApp < Sinatra::Base
-
   use Rack::Cache, :verbose => true, :meta_store => 'heap:/', :entitystore => 'heap:/'
+
+  enable :sessions
 
   get '/' do
     headers['Content-Type'] = 'text/plain'
@@ -37,6 +38,15 @@ class CachedApp < Sinatra::Base
     headers['Last-Modified'] = Chronic.parse('0 minutes ago')
     headers['Content-Type'] = 'text/plain'
     ""
+  end
+end
+
+class SessionIframeApp < CachedApp
+  use Rack::Iframe
+
+  get '/test_iframe_session' do
+    headers['Content-Type'] = 'text/plain'
+    "#{session[:iframe_session]}"
   end
 end
 
